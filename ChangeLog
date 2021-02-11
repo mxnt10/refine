@@ -1,0 +1,18 @@
+# ChangeLog
+All notable changes to this project will be documented in this file.
+Todas as mudanças notáveis ​​neste projeto serão documentadas neste arquivo.
+
+
+## [ 1.0 ] - 2021-02-08 ##################################################
+
+### Added / Adicionado
+ - Added parameter -f for read the first lines of the files.
+ - Added parameter -l for read the last lines of the files.
+ - Added parameter -a for read a line from a file.
+ - Added parameter -d and -s for read the specific lines of the files.
+ - Added parameter -h for view help information.
+ - The Parameter -e0 -t0 -a0 and -d0 has the same result as -e -t -a -d,
+   but without enumerating the lines.
+###
+
+##########################################################################
