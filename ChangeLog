@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 Todas as mudanças notáveis ​​neste projeto serão documentadas neste arquivo.
 
 
-## [ Released ] - 2021-02-14 #############################################
+## [ 2.0 ] - 2021-02-14 ##################################################
 
 ### Added / Adicionado
  - Added parameter -i for read inverted the specific lines of the files.
