@@ -1,4 +1,4 @@
-# Refine - v1.0 - PT-BR
+# Refine - v2.0 - PT-BR
 *Ler linhas específicas de documentos de texto.*
 <br/>
 
@@ -33,16 +33,13 @@ $ refine [options] file.txt
 
 O refine possui uma série de parâmetros. Veja a seguir:
 ```sh
-  -f: Para ler as primeiras linhas de arquivos de texto.
-  -f0: O mesmo efeito, só que de forma limpa.
-  -l: Para ler as últimas linhas de arquivos de texto.
-  -l0: O mesmo efeito, só que de forma limpa.
-  -a: Para ler uma linha de um arquivo de texto.
-  -a0: O mesmo efeito, só que de forma limpa.
-  -d: Para ler um número específico de linhas de arquivos de texto. Esse delimita o início da listagem.
-  -d0: O mesmo efeito, só que de forma limpa.
-  -s: Seleciona o limite de linhas específicas. Deve ser usado após -d ou -d0.
-  -h: Para visualizar as informações de ajuda.
+	-f: Para ler as primeiras linhas de arquivos de texto.
+	-l: Para ler as últimas linhas de arquivos de texto.
+	-d: Para ler um número específico de linhas de arquivos de texto.
+	-i: Para ler um número específico de linhas de arquivos de texto de forma invertida.
+	-h: Para visualizar as informações de ajuda.
+	 c: Habilitar cor para os parâmetros f, l, d e i.
+	 0: Visualização simples para os parâmetros f, l, d e i.
 ```
 <br/>
 
@@ -59,18 +56,18 @@ $ head -5 LICENSE
  Everyone is permitted to copy and distribute verbatim copies
 ```
 ```sh
-$ refine -f 5 LICENSE 
+$ refine f 5 LICENSE 
 
-LICENSE:
-        1:                     GNU GENERAL PUBLIC LICENSE
-        2:                        Version 3, 29 June 2007
-        3: 
-        4:  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
-        5:  Everyone is permitted to copy and distribute verbatim copies
+/home/mauricio/GIT/refine/LICENSE:
+         1:                     GNU GENERAL PUBLIC LICENSE
+         2:                        Version 3, 29 June 2007
+         3: 
+         4:  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+         5:  Everyone is permitted to copy and distribute verbatim copies
+
 ```
 ```sh
-$ refine -f0 5 LICENSE 
-
+$ refine f0 5 LICENSE 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
@@ -79,7 +76,7 @@ $ refine -f0 5 LICENSE
 ```
 <br/>
 
-Agora, comparando com o *tail*. Como vocês podem ver a linha vazia também entra na equação. a linha está vazia, mas ela existe, portanto deve ser contada. Porém, ela será visível apenas em -l e como uma linha extra:
+Agora, comparando com o *tail*. Como vocês podem ver, a última linha não entra na equação se for vazia, assim como no *tail*:
 ```sh
 $ tail -5 LICENSE 
 into proprietary programs.  If your program is a subroutine library, you
@@ -89,19 +86,17 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 ```
 ```sh
-$ refine -l 5 LICENSE 
+$ refine l 5 LICENSE 
 
-LICENSE:
-        670: into proprietary programs.  If your program is a subroutine library, you
-        671: may consider it more useful to permit linking proprietary applications with
-        672: the library.  If this is what you want to do, use the GNU Lesser General
-        673: Public License instead of this License.  But first, please read
-        674: <https://www.gnu.org/licenses/why-not-lgpl.html>.
-        675: 
+/home/mauricio/GIT/refine/LICENSE:
+       670: into proprietary programs.  If your program is a subroutine library, you
+       671: may consider it more useful to permit linking proprietary applications with
+       672: the library.  If this is what you want to do, use the GNU Lesser General
+       673: Public License instead of this License.  But first, please read
+       674: <https://www.gnu.org/licenses/why-not-lgpl.html>.
 ```
 ```sh
-$ refine -l0 5 LICENSE 
-
+$ refine l0 5 LICENSE 
 into proprietary programs.  If your program is a subroutine library, you
 may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
@@ -120,9 +115,9 @@ free programs, and that you know you can do these things.
 these rights or asking you to surrender the rights.  Therefore, you have
 ```
 ```sh
-$ refine -d 26 -s 30 LICENSE 
+$ refine d 26-30 LICENSE 
 
-LICENSE:
+/home/mauricio/GIT/refine/LICENSE:
         26: want it, that you can change the software or use pieces of it in new
         27: free programs, and that you know you can do these things.
         28: 
@@ -130,8 +125,7 @@ LICENSE:
         30: these rights or asking you to surrender the rights.  Therefore, you have
 ```
 ```sh
-$ refine -d0 26 -s 30 LICENSE 
-
+$ refine d0 26-30 LICENSE 
 want it, that you can change the software or use pieces of it in new
 free programs, and that you know you can do these things.
 
@@ -152,14 +146,29 @@ $ cat -n LICENSE | grep -w "  10" | cut -d$'\t' -f2-
   10. Automatic Licensing of Downstream Recipients.
 ```
 ```sh
-$ refine -a 10 LICENSE 
+$ refine d 10 LICENSE 
 
-LICENSE:
-          The GNU General Public License is a free, copyleft license for
+/home/mauricio/GIT/refine/LICENSE:
+        10:   The GNU General Public License is a free, copyleft license for
 ```
 ```sh
-$ refine -a0 10 LICENSE 
+$ refine d0 10 LICENSE 
   The GNU General Public License is a free, copyleft license for
+```
+<br/>
+
+Você quer a décima última linha? Aqui está:
+```sh
+$ refine i 10 /etc/slackpkg/mirrors 
+
+/etc/slackpkg/mirrors:
+       353: # https://mirror.slackbuilds.org/slackware/slackware64-current/
+
+```
+```sh
+$ refine i0 10 /etc/slackpkg/mirrors 
+# https://mirror.slackbuilds.org/slackware/slackware64-current/
+
 ```
 <br/>
 
