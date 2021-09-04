@@ -1,4 +1,4 @@
-# Refine Command
+# Refine v3.0
 *Reads specific lines of text documents.*
 <br/>
 
@@ -27,19 +27,19 @@ It is short, but if the file has 15 lines instead of 20, this combination will n
 
 The *refine* it has the following syntax:
 ```
-$ refine [options] file.txt
+$ refn [options] file.txt
 ```
 <br/>
 
 The *refine* it has a series of parameters. See the follow:
 ```sh
-	-f: To read the first lines of the files.
-	-l: To read the last lines of the files.
-	-d: To read the specific lines of the files.
-	-i: To read inverted the specific lines of the files.
-	-h: To view help information.
-	 c: Enable color for f, l, d and i parameters.
-	 0: Simple visualization for f, l, d and i parameters.
+    -f: To read the first lines of the files.
+    -l: To read the last lines of the files.
+    -d: To read the specific lines of the files.
+    -i: To read inverted the specific lines of the files.
+  	-c: Enable color for f, l, d and i parameters.
+    -s: Simple visualization for f, l, d and i parameters.
+    -h: To view help information.
 ```
 <br/>
 
@@ -56,7 +56,7 @@ $ head -5 LICENSE
  Everyone is permitted to copy and distribute verbatim copies
 ```
 ```sh
-$ refine f 5 LICENSE 
+$ refn -f 5 LICENSE 
 
 /home/mauricio/GIT/refine/LICENSE:
          1:                     GNU GENERAL PUBLIC LICENSE
@@ -64,10 +64,9 @@ $ refine f 5 LICENSE
          3: 
          4:  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
          5:  Everyone is permitted to copy and distribute verbatim copies
-
 ```
 ```sh
-$ refine f0 5 LICENSE 
+$ refn -f 5 -s LICENSE 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
@@ -86,7 +85,7 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 ```
 ```sh
-$ refine l 5 LICENSE 
+$ refn -l 5 LICENSE 
 
 /home/mauricio/GIT/refine/LICENSE:
        670: into proprietary programs.  If your program is a subroutine library, you
@@ -96,7 +95,7 @@ $ refine l 5 LICENSE
        674: <https://www.gnu.org/licenses/why-not-lgpl.html>.
 ```
 ```sh
-$ refine l0 5 LICENSE 
+$ refn -l 5 -s LICENSE 
 into proprietary programs.  If your program is a subroutine library, you
 may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
@@ -115,7 +114,7 @@ free programs, and that you know you can do these things.
 these rights or asking you to surrender the rights.  Therefore, you have
 ```
 ```sh
-$ refine d 26-30 LICENSE 
+$ refn -d 26-30 LICENSE 
 
 /home/mauricio/GIT/refine/LICENSE:
         26: want it, that you can change the software or use pieces of it in new
@@ -125,7 +124,7 @@ $ refine d 26-30 LICENSE
         30: these rights or asking you to surrender the rights.  Therefore, you have
 ```
 ```sh
-$ refine d0 26-30 LICENSE 
+$ refn -d 26-30 -s LICENSE 
 want it, that you can change the software or use pieces of it in new
 free programs, and that you know you can do these things.
 
@@ -146,35 +145,33 @@ $ cat -n LICENSE | grep -w "  10" | cut -d$'\t' -f2-
   10. Automatic Licensing of Downstream Recipients.
 ```
 ```sh
-$ refine d 10 LICENSE 
+$ refn -d 10 LICENSE 
 
 /home/mauricio/GIT/refine/LICENSE:
         10:   The GNU General Public License is a free, copyleft license for
 ```
 ```sh
-$ refine d0 10 LICENSE 
+$ refn -d 10 -s LICENSE 
   The GNU General Public License is a free, copyleft license for
 ```
 <br/>
 
 You want the tenth last line? Here it is:
 ```sh
-$ refine i 10 /etc/slackpkg/mirrors 
+$ refn -i 10 /etc/slackpkg/mirrors 
 
 /etc/slackpkg/mirrors:
        353: # https://mirror.slackbuilds.org/slackware/slackware64-current/
-
 ```
 ```sh
-$ refine i0 10 /etc/slackpkg/mirrors 
+$ refn -i 10 -s /etc/slackpkg/mirrors 
 # https://mirror.slackbuilds.org/slackware/slackware64-current/
-
 ```
 <br/>
 
 The result dispenses with comments. So, to conclude, here is a command alternative to facilitate the search for specific lines in files.
 
-        --> NOTE: The commands were thought to be used separately, so nothing of "-fl".
+        --> NOTE: The commands '-f', '-l', '-d' and '-i' were thought to be used separately.
 <br/>
 
 ### GNU General Public License:

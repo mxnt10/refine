@@ -3,6 +3,26 @@ All notable changes to this project will be documented in this file.
 Todas as mudanças notáveis ​​neste projeto serão documentadas neste arquivo.
 
 
+## [ 3.0 ] - 2021-09-04 ##################################################
+
+### Added / Adicionado
+ - Added parameter '-s' for simple view for '-f', '-l', '-d' and '-i'
+   parameters.
+###
+
+### Changed / Modificado
+ - Code refactored and improved using the function getopt_long() for
+   parameters selection.
+ - Error messages improved.
+###
+
+### Removed / Removido
+ - Removed parameter 0, replaced by '-s' parameters.
+###
+
+##########################################################################
+
+
 ## [ 2.0 ] - 2021-02-14 ##################################################
 
 ### Added / Adicionado
