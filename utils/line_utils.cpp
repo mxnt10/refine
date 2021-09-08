@@ -52,7 +52,7 @@ int view_lines( bool s, bool c, char p, char *f, long int x, unsigned long int y
         }
     }
 
-    /** **/
+    /** To read the specific lines of the files. **/
 
     if ( p == parm_d ) {
         if ( y == nullarg ) y = x;
@@ -66,7 +66,7 @@ int view_lines( bool s, bool c, char p, char *f, long int x, unsigned long int y
         }
     }
 
-    /** **/
+    /** To read inverted the specific lines of the files. **/
 
     if ( p == parm_i ) {
         int lines = count_lines(f);

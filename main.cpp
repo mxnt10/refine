@@ -1,4 +1,4 @@
-/**     "refine v3.0" - Reads specific lines of text documents.     **
+/**     "refine v3.1" - Reads specific lines of text documents.     **
  **     By Mauricio Ferrari - Date Creation: 2021/02/07.            **
  **                         - Last Update:   2021/09/04.            **/
 
@@ -25,7 +25,7 @@ using namespace std;
 #pragma ide diagnostic ignored "OCDFAInspection"
 
 void help( char *x ) {
-    cout << "refine v3.0 - Reads specific lines of text documents." << endl;
+    cout << "refine v3.1 - Reads specific lines of text documents." << endl;
     cout << "\nSyntax: " << x << " [options] text_file" << endl;
     cout << "\nParameters:" << endl;
     cout << "\t-f: To read the first lines of the files." << endl;
@@ -46,7 +46,11 @@ void help( char *x ) {
 int main( int argc, char **argv ) {
 
     char *ref_file = basename(argv[0]);
+
+    /** First controls. **/
+
     if ( argc == 1 ) help(ref_file);
+    if ( strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "-s") == 0 ) err_cs_first(ref_file);
 
     int opt, i;
     int first_line = default_view;
@@ -90,20 +94,13 @@ int main( int argc, char **argv ) {
 
         /** Control for optional parameters. **/
 
-        if ( !optarg
-            && optind < argc
-            && nullptr != argv[optind]
-            && '\0' != argv[optind][0]
-            && '-' != argv[optind][0] ) optarg = argv[optind++];
+        if ( !optarg && optind < argc && nullptr != argv[optind] && '\0' != argv[optind][0] && '-' != argv[optind][0] ) optarg = argv[optind++];
 
         switch ( opt ) {
 
             case 'f': /** Option -f or --first **/
 
-                if ( set_first
-                    || set_last
-                    || set_delimit
-                    || set_invert ) err_parm(ref_file, set_first, parm_f, msg_err_first);
+                if ( set_first || set_last || set_delimit || set_invert ) err_parm(ref_file, set_first, parm_f, msg_err_first);
 
                 if ( optarg != nullptr ) {
                     if ( number_validate(optarg) == 0 ) first_line = stoi(optarg, nullptr, 0);
@@ -118,10 +115,7 @@ int main( int argc, char **argv ) {
 
             case 'l': /** Option -l or --last **/
 
-                if ( set_first
-                    || set_last
-                    || set_delimit
-                    || set_invert ) err_parm(ref_file, set_last, parm_l, msg_err_last);
+                if ( set_first || set_last || set_delimit || set_invert ) err_parm(ref_file, set_last, parm_l, msg_err_last);
 
                 if ( optarg != nullptr ) {
                     if ( number_validate(optarg) == 0 ) last_line = stoi(optarg, nullptr, 0);
@@ -136,10 +130,7 @@ int main( int argc, char **argv ) {
 
             case 'd': /** Option -d or --delimit **/
 
-                if ( set_first
-                    || set_last
-                    || set_delimit
-                    || set_invert ) err_parm(ref_file, set_delimit, parm_d, msg_err_delimit);
+                if ( set_first || set_last || set_delimit || set_invert ) err_parm(ref_file, set_delimit, parm_d, msg_err_delimit);
 
                 delimit_line = optarg;
                 set_delimit = true;
@@ -148,10 +139,7 @@ int main( int argc, char **argv ) {
 
             case 'i': /** Option -i or --invert **/
 
-                if ( set_first
-                    || set_last
-                    || set_delimit
-                    || set_invert ) err_parm(ref_file, set_invert, parm_i, msg_err_invert);
+                if ( set_first || set_last || set_delimit || set_invert ) err_parm(ref_file, set_invert, parm_i, msg_err_invert);
 
                 invert_line = optarg;
                 set_invert = true;
@@ -160,7 +148,7 @@ int main( int argc, char **argv ) {
 
             case 'c': /** Option -c or --color **/
 
-                if ( set_color ) err_parm(ref_file, set_color, parm_c, nullptr);
+                if ( set_color || !set_first && !set_last && !set_delimit && !set_invert ) err_parm(ref_file, set_color, parm_c,nullptr);
 
                 set_color = true;
                 discount_arg = true;
@@ -168,7 +156,7 @@ int main( int argc, char **argv ) {
 
             case 's': /** Option -s or --simple **/
 
-                if ( set_simple ) err_parm(ref_file, set_color, parm_s, nullptr);
+                if ( set_simple || !set_first && !set_last && !set_delimit && !set_invert ) err_parm(ref_file, set_simple, parm_s,nullptr);
 
                 set_simple = true;
                 discount_arg = true;
@@ -184,25 +172,8 @@ int main( int argc, char **argv ) {
         }
     }
 
-    /** Additional error control for -c and -s. **/
-
-    if ( set_color ) {
-        if ( !set_first
-            && !set_last
-            && !set_delimit
-            && !set_invert ) err_parm(ref_file, false, parm_c, msg_err_color);
-    }
-
-    if ( set_simple ) {
-        if ( !set_first
-            && !set_last
-            && !set_delimit
-            && !set_invert ) err_parm(ref_file, false, parm_s, msg_err_simple);
-    }
-
     /** Additional controls. **/
 
-    if ( strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "-s") == 0 ) err_cs_first(ref_file);
     if ( set_color && set_simple ) err_cs(ref_file);
     if ( optind == 1 || argc < 3 ) help(ref_file);
 
@@ -253,16 +224,19 @@ int main( int argc, char **argv ) {
     /** Control for optional parameters for -f and -l. **/
 
     if ( recover_arg != nullptr ) {
-        if ( check_files(recover_arg) == 1 ) err_file(ref_file, recover_arg);
+        cout << "foi";
+        if ( check_files(recover_arg) == 1 ) err_file(ref_file, recover_arg, 0);
         file = realpath(recover_arg, nullptr);
         if ( set_first ) view_lines(set_simple, set_color, parm_f, file, first_line, nullarg);
         if ( set_last ) view_lines(set_simple, set_color, parm_l, file, last_line, nullarg);
     }
 
+    if ( recover_arg == nullptr && argv[res] == nullptr ) err_file(ref_file, nullptr, 1);
+
     /** Control for entry files. **/
 
     for ( i = res; argv[i] != nullptr; i++ ) {
-        if ( check_files(argv[i]) == 1 ) err_file(ref_file, argv[i]);
+        if ( check_files(argv[i]) == 1 ) err_file(ref_file, argv[i], 0);
         file = realpath(argv[i], nullptr);
         if ( set_first ) view_lines(set_simple, set_color, parm_f, file, first_line, nullarg);
         if ( set_last ) view_lines(set_simple, set_color, parm_l, file, last_line, nullarg);

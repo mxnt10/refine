@@ -17,8 +17,9 @@ void err_parm( char *x, bool y, char z, const char *msg ) {
     exit(1);
 }
 
-void err_file( char *x, char *y ) {
-    cerr << x << ": File '" << y << "' not exist." << endl;
+void err_file( char *x, char *y, int z ) {
+    if ( z == 1 ) cerr << x << ": No file entries." << endl;
+    else cerr << x << ": File '" << y << "' not exist." << endl;
     exit(1);
 }
 

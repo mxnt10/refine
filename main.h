@@ -11,8 +11,6 @@
 #define msg_err_last    "Parameter 'l' cannot be used with 'f', 'd' and 'i'."
 #define msg_err_delimit "Parameter 'd' cannot be used with 'f', 'l' and 'i'."
 #define msg_err_invert  "Parameter 'i' cannot be used with 'f', 'l' and 'd'."
-#define msg_err_color   "Parameter 'c' must be used with 'f', 'l', 'd' or 'i'."
-#define msg_err_simple  "Parameter 's' must be used with 'f', 'l', 'd' or 'i'."
 
 /** Functions declaration. **/
 

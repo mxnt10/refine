@@ -5,7 +5,7 @@ void err_num( char *x, char *y, int z );
 
 void err_parm( char *x, bool y, char z, const char *msg );
 
-void err_file( char *x, char *y );
+void err_file( char *x, char *y, int z );
 
 void err_cs_first( char *x );
 
