@@ -37,7 +37,7 @@ The *refine* it has a series of parameters. See the follow:
     -l: To read the last lines of the files.
     -d: To read the specific lines of the files.
     -i: To read inverted the specific lines of the files.
-  	-c: Enable color for f, l, d and i parameters.
+    -c: Enable color for f, l, d and i parameters.
     -s: Simple visualization for f, l, d and i parameters.
     -h: To view help information.
 ```
